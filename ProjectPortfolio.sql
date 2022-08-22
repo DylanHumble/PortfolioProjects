@@ -1,11 +1,13 @@
+/*
+Covid 19 Data Exploration 
+
+Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+*/
+
 Select * 
 From PortfolioProject..CovidDeaths
 Where continent is not null
 order by 3,4
-
---Select * 
---From PortfolioProject..CovidVaccinations
---order by 3,4
 
 -- Select Data that is going to be used
 
@@ -79,6 +81,7 @@ order by 1,2
 
 
 --Looking at Total Population vs Vaccinations
+--Shows percentage of population who has recieved at least one vaccination shot
 
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 , SUM(CONVERT(bigint,vac.new_vaccinations)) OVER (Partition by dea.Location Order by dea.Location, dea.Date) as RollingPeopleVaccinated
@@ -108,6 +111,7 @@ From PopvsVac
 
 
 --TEMP TABLE
+
 DROP Table if exists #PercentPopulationVaccinated
 Create Table #PercentPopulationVaccinated
 (
